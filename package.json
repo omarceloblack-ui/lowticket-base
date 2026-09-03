@@ -1,0 +1,35 @@
+{
+  "name": "matriz-low-ticket",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "prepare:images": "node scripts/prepare-images.mjs",
+    "validate:assets": "node scripts/prepare-images.mjs --validate-only",
+    "validate:project": "node scripts/validate-project.mjs",
+    "prebuild": "pnpm prepare:images && pnpm validate:assets",
+    "build": "tsc -b && vite build",
+    "predeploy": "pnpm prepare:images && pnpm validate:assets && pnpm validate:project && pnpm build",
+    "cloudflare:check": "pnpm predeploy && wrangler deploy --dry-run",
+    "cloudflare:dev": "pnpm build && wrangler dev",
+    "cloudflare:deploy": "pnpm predeploy && wrangler deploy",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.14",
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tailwindcss": "^4.1.14"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.4",
+    "sharp": "^0.34.3",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.9",
+    "wrangler": "^4.127.1"
+  }
+}
